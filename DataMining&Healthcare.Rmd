@@ -1,0 +1,84 @@
+---
+title: "DataMiningandHealthcare"
+author: "Sophie Fournier"
+date: '2022-08-12'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is the Veteran's Administration Lung Cancer Trial data set (Kalbfeisch and Prentice).This data set shows the treatment used and the effectiveness dependent on a variety of factors.
+
+There are 8 attributes:
+
+stime: Survival time; days since treatment
+
+status: 1(dead) and 0(alive)
+
+treat: 1(standard treatment) and 2(test drug treatment)
+
+age: in years
+
+Karn: Karnofsky score
+
+diag.time: time since diagnosis (months)
+
+cell: type of cell; 1(squamous cell), 2(small cell), 3(adeno cell), 4(large cell)
+
+prior: prior therapy (0=none and 10=yes) 
+
+Decision Tree Mining is a probability tree that helps with decision making.
+
+```{r}
+# Import Data set
+library(knitr)
+library(rmarkdown)
+library(MASS)
+x <- VA
+x
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+# Clean-up the Data set
+library(dplyr)
+clean_x <- x %>%
+  mutate(status = factor(status, levels = c(1, 0), labels = c('Dead', 'Alive'))) %>%
+  mutate(treat = factor(treat, levels = c(1, 2), labels = c('standard', 'test drug'))) %>% 
+  mutate(cell = factor(cell, levels = c(1, 2, 3, 4), labels = c('squamous', 'small', 'adeno', 'large'))) %>%
+  mutate(prior = factor(prior, levels = c(0, 10), labels = c('none', 'yes')))
+x2 <- na.omit(clean_x)
+x2
+```
+
+```{r}
+# Split data set into train and test
+# Common split is an 80/20 split 
+trainfunction <- function(data, size = 0.8, train = TRUE) {
+   n_rows = nrow(data)
+    totalrows = size * n_rows
+    sample <- 1:totalrows
+    if (train == TRUE) {
+        return (data[sample, ])
+    } else {
+        return (data[-sample, ])
+    }
+}
+traindata <- trainfunction(x2, size = 0.8, train = TRUE)
+testdata <- trainfunction(x2, size = 0.8, train = FALSE)
+traindata
+```
+
+
+```{r}
+# Create Decision Tree
+library(rpart)
+library(rpart.plot)
+VAtree <- rpart(stime~., data = traindata)
+rpart.plot(VAtree)
+```
