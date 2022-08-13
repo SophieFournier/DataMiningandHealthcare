@@ -59,6 +59,7 @@ x2
 ```{r}
 # Split data set into train and test
 # Common split is an 80/20 split 
+# Create function
 trainfunction <- function(data, size = 0.8, train = TRUE) {
    n_rows = nrow(data)
     totalrows = size * n_rows
@@ -81,4 +82,11 @@ library(rpart)
 library(rpart.plot)
 VAtree <- rpart(stime~., data = traindata)
 rpart.plot(VAtree)
+```
+
+```{r}
+# Create bar graph
+library(ggplot2)
+VAplot <- ggplot(traindata, aes(x=treat, y=age)) + geom_jitter(aes(color=status)) + geom_boxplot(aes(alpha = 0.3, outlier.shape = NA)) + labs(y="Age", x="Treatment") + ggtitle("Survival Status based on Treatment and Age", subtitle = "Low Number of Survivors in Both Type of Treatments")
+VAplot
 ```

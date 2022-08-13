@@ -694,6 +694,7 @@ x2</code></pre>
 ## 137    49   Dead test drug  37   30         3    large  none</code></pre>
 <pre class="r"><code># Split data set into train and test
 # Common split is an 80/20 split 
+# Create function
 trainfunction &lt;- function(data, size = 0.8, train = TRUE) {
    n_rows = nrow(data)
     totalrows = size * n_rows
