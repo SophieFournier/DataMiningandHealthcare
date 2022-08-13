@@ -87,6 +87,6 @@ rpart.plot(VAtree)
 ```{r}
 # Create scatter plot with box plots
 library(ggplot2)
-VAplot <- ggplot(traindata, aes(x=treat, y=age)) + geom_jitter(aes(size=status, color=status)) + geom_boxplot(aes(alpha = 0.3, outlier.shape = NA)) + labs(y="Age", x="Type of Treatment") + ggtitle("Effectiveness of Treatment based on Treatment Type and Age", subtitle = "Both Treatments were Ineffective for Most Patients")
+VAplot <- ggplot(traindata, aes(x=treat, y=age)) + geom_jitter(aes(size=status, color=status)) + geom_boxplot(aes(fill=status, alpha = 0.15, outlier.shape = NA)) + labs(y="Age", x="Type of Treatment") + ggtitle("Effectiveness of Treatment based on Treatment Type and Age", subtitle = "Both Treatments were Ineffective for Most Patients")
 VAplot
 ```
