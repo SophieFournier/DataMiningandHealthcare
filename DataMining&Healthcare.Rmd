@@ -29,7 +29,6 @@ cell: type of cell; 1(squamous cell), 2(small cell), 3(adeno cell), 4(large cell
 
 prior: prior therapy (0=none and 10=yes) 
 
-Decision Tree Mining is a probability tree that helps with decision making.
 
 ```{r}
 # Import Data set
